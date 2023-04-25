@@ -1,10 +1,13 @@
 package com.fixxtion.springbootblogrestapi.service;
 
 import com.fixxtion.springbootblogrestapi.payload.PostDto;
-import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 public interface PostService {
     PostDto createPost(PostDto postDto);
 
-    PostDto getAllPosts();
+    List<PostDto> getAllPosts();
+
+    PostDto getPostById(long id);
 }
