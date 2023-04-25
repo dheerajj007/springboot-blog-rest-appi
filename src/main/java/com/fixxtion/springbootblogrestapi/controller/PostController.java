@@ -2,6 +2,7 @@ package com.fixxtion.springbootblogrestapi.controller;
 
 import com.fixxtion.springbootblogrestapi.entity.Post;
 import com.fixxtion.springbootblogrestapi.payload.PostDto;
+import com.fixxtion.springbootblogrestapi.payload.PostResponse;
 import com.fixxtion.springbootblogrestapi.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,10 @@ public class PostController {
 
     //get all posts rest api
     @GetMapping
-    public ResponseEntity<List<PostDto>> getAllPosts(){
-        return new ResponseEntity<>(postService.getAllPosts(), HttpStatus.OK);
+    public ResponseEntity<PostResponse> getAllPosts(
+            @RequestParam(value="pageNo", defaultValue = "0", required=false) int pageNo,
+            @RequestParam(value="pageSize", defaultValue = "10", required=false) int pageSize){
+        return new ResponseEntity<>(postService.getAllPosts(pageNo, pageSize), HttpStatus.OK);
     }
 
     //Get Post by id rest api
