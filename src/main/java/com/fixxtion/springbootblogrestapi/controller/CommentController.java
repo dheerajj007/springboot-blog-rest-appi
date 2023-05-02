@@ -2,6 +2,7 @@ package com.fixxtion.springbootblogrestapi.controller;
 
 import com.fixxtion.springbootblogrestapi.payload.CommentDto;
 import com.fixxtion.springbootblogrestapi.service.CommentService;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,14 @@ public class CommentController {
     @GetMapping("/posts/{postId}/comments")
     public List<CommentDto> getCommentsByPostId(@PathVariable(value="postId") Long postId){
         return commentService.getCommentsByPostId(postId);
+    }
+
+    @GetMapping("/posts/{postId}/comments/{id}")
+    public ResponseEntity<CommentDto> getCommentById(@PathVariable(value="postId") Long postId,@PathVariable(value="id") Long commentId){
+        CommentDto commentDto = commentService.getCommentById(postId, commentId);
+        return new ResponseEntity<>(commentDto, HttpStatus.OK);
+
+
 
     }
 }
