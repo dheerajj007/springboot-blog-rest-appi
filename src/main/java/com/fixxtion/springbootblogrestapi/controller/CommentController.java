@@ -3,6 +3,7 @@ package com.fixxtion.springbootblogrestapi.controller;
 import com.fixxtion.springbootblogrestapi.entity.Comment;
 import com.fixxtion.springbootblogrestapi.payload.CommentDto;
 import com.fixxtion.springbootblogrestapi.service.CommentService;
+import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class CommentController {
 
     @PostMapping("/posts/{postId}/comments")
     public ResponseEntity<CommentDto> createComment(@PathVariable(value="postId") long postId,
-                                                    @RequestBody CommentDto commentDto){
+                                                    @Valid @RequestBody CommentDto commentDto){
         return new ResponseEntity<>(commentService.createComment(postId, commentDto), HttpStatus.CREATED);
     }
 
@@ -38,7 +39,7 @@ public class CommentController {
     @PutMapping("/posts/{postId}/comments/{id}")
     public ResponseEntity<CommentDto> updateComment(@PathVariable(value="postId") Long postId,
                                                     @PathVariable(value="id") Long commentId,
-                                                    @RequestBody CommentDto commentDto){
+                                                    @Valid @RequestBody CommentDto commentDto){
         CommentDto updatedComment = commentService.updateComment(postId, commentId, commentDto);
         return ResponseEntity.ok(updatedComment);
     }
